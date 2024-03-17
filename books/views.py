@@ -7,17 +7,16 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 
 
-
-
 # Create your views here.
 
+
 class BookAPIView(APIView):
-    def get(self,request,pk):
+    def get(self, request, pk):
         if pk:
             book = Book.objects.get(pk=pk)
             serializer = BookSerializer(book)
             return Response(
-                {"status": "Success", "data":serializer.data},
+                {"status": "Success", "data": serializer.data},
                 status=status.HTTP_200_OK,
             )
         books = Book.objects.all()
@@ -25,8 +24,8 @@ class BookAPIView(APIView):
         return Response(
             {"status": "Success", "data": serializer.data}, status=status.HTTP_200_OK
         )
-        
-    def post(self,request):
+
+    def post(self, request):
         data = request.data
         serializer = BookSerializer(data=request.data)
         if not serializer.is_valid():
@@ -37,10 +36,11 @@ class BookAPIView(APIView):
 
         serializer.save()
         return Response({"messages": "success", "payload": serializer.data})
-    def put(self,request,pk):
+
+    def put(self, request, pk):
         try:
             book_obj = Book.objects.get(pk=pk)
-            serializer = BookSerializer(book_obj,data=request.data)
+            serializer = BookSerializer(book_obj, data=request.data)
 
             if not serializer.is_valid():
                 print(serializer.errors)
@@ -53,7 +53,7 @@ class BookAPIView(APIView):
         except Exception as e:
             print(e)
             return Response({"message": "invallid ID"})
-    
+
     def patch(self, request, pk):
         try:
             book_obj = Book.objects.get(pk=pk)
@@ -70,10 +70,10 @@ class BookAPIView(APIView):
         except Exception as e:
             print(e)
             return Response({"message": "invallid ID"})
-        
+
     def delete(self, request, pk):
         try:
-            
+
             book_obj = Book.objects.get(pk=pk)
             return Response({"message": "deleted success"})
         except Exception as e:
