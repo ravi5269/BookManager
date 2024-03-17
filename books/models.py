@@ -1,8 +1,9 @@
 from django.db import models
+from base.models import BaseModel
 
 # Create your models here
 
-class Author(models.Model):
+class Author(BaseModel,models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     date_of_birth = models.DateField()
@@ -11,7 +12,7 @@ class Author(models.Model):
     def __str__(self):
         return self.name
 
-class Book(models.Model):
+class Book(BaseModel,models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
