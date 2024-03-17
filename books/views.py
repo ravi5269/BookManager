@@ -11,7 +11,7 @@ from rest_framework import status
 
 
 class BookAPIView(APIView):
-    def get(self, request, pk):
+    def get(self, request, pk=None):
         if pk:
             book = Book.objects.get(pk=pk)
             serializer = BookSerializer(book)
